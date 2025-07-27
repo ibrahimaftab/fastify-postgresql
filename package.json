@@ -1,0 +1,19 @@
+{
+  "name": "fastify-postgresql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.8.0",
+  "dependencies": {
+    "fastify": "^5.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
