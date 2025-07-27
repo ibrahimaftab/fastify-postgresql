@@ -1,12 +1,7 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import env from "@fastify/env";
-
-const client = new Client();
-
-await client.connect();
-
-const app = Fastify({ logger: true });
+import db from "./plugins/db";
 
 const schema = {
   type: "object",
@@ -17,20 +12,20 @@ const schema = {
   },
 };
 
-await app.register(env, {
-  dotenv: true,
-  schema,
-  data: process.env,
-});
+const app = Fastify({ logger: true });
 
-app.get("/", async (request, reply) => {
-  return { hello: "world" };
-});
+const server = async () => {
+  await app.register(env, {
+    dotenv: true,
+    schema,
+    data: process.env,
+  });
 
-app.listen({ port: 4000 }, (err, address) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-  console.log(`Server listening at ${address}`);
-});
+  await app.register(cors);
+  await app.register(db);
+  // await app.register(userRoutes, { prefix: "/users" });
+};
+
+server();
+
+export default app;
